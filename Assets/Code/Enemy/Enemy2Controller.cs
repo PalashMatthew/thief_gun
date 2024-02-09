@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Enemy1Controller : MonoBehaviour
+public class Enemy2Controller : MonoBehaviour
 {
     public float distanceVisible;
 
@@ -18,11 +18,25 @@ public class Enemy1Controller : MonoBehaviour
 
     public LayerMask layer;
 
+    public float shoot_speed;
+
+    public bool start_attack = false;
+
+    public GameObject bullet_obj;
+
+    public Transform bullet_spawn_pos;
+
+    public float bulletSpeed;
+
+    bool isPlayerFind = false;
+
 
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         isStartMove = false;
+
+        StartCoroutine(Shoting());
 
         startCoord = transform.position;
     }
@@ -31,13 +45,9 @@ public class Enemy1Controller : MonoBehaviour
     {
         CheckPlayer();
 
-        if (isStartMove)
+        if (isPlayerFind)
         {
             agent.SetDestination(GameObject.Find("Player").transform.position);
-        }
-        else if (transform.position != startCoord)
-        {
-            agent.SetDestination(startCoord);
         }
     }
 
@@ -59,20 +69,9 @@ public class Enemy1Controller : MonoBehaviour
             {
                 isPlayerVisible = true;
 
-                if (!isStartMove)
-                {
-                    isStartMove=true;
-                    StartCoroutine(StopMove());
-                }
+                isPlayerFind = true;
+
             }
-            else
-            {
-                isPlayerVisible = false;
-            }
-        }
-        else
-        {
-            isPlayerVisible = false;
         }
     }
 
@@ -96,5 +95,25 @@ public class Enemy1Controller : MonoBehaviour
         {
             PlayerHealth.playerHp -= 1;
         }
+    }
+
+    IEnumerator Shoting()
+    {
+        yield return new WaitForSeconds(shoot_speed);
+
+        if (isPlayerFind)
+            Shot();
+
+        StartCoroutine(Shoting());
+    }
+
+    void Shot()
+    {
+        GameObject _bullet = Instantiate(bullet_obj, bullet_spawn_pos.position, transform.rotation);
+
+        _bullet.transform.LookAt(GameObject.Find("Player").transform.position);
+        _bullet.transform.eulerAngles = new Vector3(0, _bullet.transform.eulerAngles.y, 0);
+
+        _bullet.GetComponent<BulletController>().speed = bulletSpeed;
     }
 }

@@ -19,8 +19,12 @@ public class BulletController : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        GameObject _vfx = Instantiate(vfx_boom, collision.contacts[0].point, transform.rotation);
-        Destroy(_vfx, 2);
-        Destroy(gameObject);
+        if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "wall")
+        {
+            GameObject _vfx = Instantiate(vfx_boom, collision.contacts[0].point, transform.rotation);
+            Destroy(_vfx, 2);
+            Destroy(gameObject);
+        }
+        
     }
 }

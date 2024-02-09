@@ -19,8 +19,8 @@ TagManager:
   - not_player
   - player
   - ground
-  - 
-  - 
+  - bullet
+  - enemy
   - 
   - 
   - 

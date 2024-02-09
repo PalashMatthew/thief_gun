@@ -1,0 +1,125 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/StartScene.unity
+    guid: 9e78397f00bc79c4e97724285da38e29
+  - enabled: 1
+    path: Assets/Scenes/LevelSelect.unity
+    guid: 61275929d4a192b49a9a3185584f87aa
+  - enabled: 1
+    path: Assets/Scenes/Levels/Final Levels/F_Level_4.unity
+    guid: a837e46fe25763e43876fbb8409768bd
+  - enabled: 1
+    path: Assets/Scenes/Levels/Final Levels/F_Level_1.unity
+    guid: bc4fbd959aad6424bbe80ae12ef22741
+  - enabled: 1
+    path: Assets/Scenes/Levels/Final Levels/F_Level_8.unity
+    guid: 61e4959f217eced4fa6ebdf0b7e4ef04
+  - enabled: 1
+    path: Assets/Scenes/Levels/Final Levels/F_Level_2.unity
+    guid: 1196581978775c14183ba0394a07b7bd
+  - enabled: 1
+    path: Assets/Scenes/Levels/Final Levels/F_Level_24.unity
+    guid: 5f7da8f32e9318042af11a92a5de2e20
+  - enabled: 1
+    path: Assets/Scenes/Levels/Final Levels/F_Level_10.unity
+    guid: 1059e70d96256664e8a004c350ec9353
+  - enabled: 1
+    path: Assets/Scenes/Levels/Final Levels/F_Level_6.unity
+    guid: 4f31692237c78184b8d9c41909515f98
+  - enabled: 1
+    path: Assets/Scenes/Levels/Final Levels/F_Level_5.unity
+    guid: b3f605d62e5f6144dbeaa395e7c286ca
+  - enabled: 1
+    path: Assets/Scenes/Levels/Final Levels/F_Level_3.unity
+    guid: c13c030175e0823488eab85c52f99daa
+  - enabled: 1
+    path: Assets/Scenes/Levels/Final Levels/F_Level_14.unity
+    guid: 8feb67ba5843a5040ad47b87d23cdda9
+  - enabled: 1
+    path: Assets/Scenes/Levels/Final Levels/F_Level_11.unity
+    guid: d64a87825b4992248b10340a5f69e8e1
+  - enabled: 1
+    path: Assets/Scenes/Levels/Final Levels/F_Level_20.unity
+    guid: 612e4a524b242114194965282889c329
+  - enabled: 1
+    path: Assets/Scenes/Levels/Final Levels/F_Level_9.unity
+    guid: 794496148ee1d904fa24544cbeee2464
+  - enabled: 1
+    path: Assets/Scenes/Levels/Final Levels/F_Level_18.unity
+    guid: ab15d278ac6997e4395a1d496c247df3
+  - enabled: 1
+    path: Assets/Scenes/Levels/Final Levels/F_Level_21.unity
+    guid: a398948bf26177e4297370b1332dcaab
+  - enabled: 1
+    path: Assets/Scenes/Levels/Final Levels/F_Level_7.unity
+    guid: 64b703a7b37b4bc4d902fa5532e213dd
+  - enabled: 1
+    path: Assets/Scenes/Levels/Final Levels/F_Level_16.unity
+    guid: 11e025f3c16ae2d44b82be8ce3af7e60
+  - enabled: 1
+    path: Assets/Scenes/Levels/Final Levels/F_Level_23.unity
+    guid: a6237de21653c9d4a8e2592e4b8b848b
+  - enabled: 1
+    path: Assets/Scenes/Levels/Final Levels/F_Level_12.unity
+    guid: dc474c27db4e1c343a0cae0d12bf7aff
+  - enabled: 1
+    path: Assets/Scenes/Levels/Final Levels/F_Level_17.unity
+    guid: e504bdeeeeed1be43b6eabe7eeb13bc2
+  - enabled: 1
+    path: Assets/Scenes/Levels/Final Levels/F_Level_13.unity
+    guid: a83da43f984918a4598abd1c1248ba2f
+  - enabled: 1
+    path: Assets/Scenes/Levels/Final Levels/F_Level_15.unity
+    guid: c0d201108d9727945969b81e34b09ad2
+  - enabled: 1
+    path: Assets/Scenes/Levels/Final Levels/F_Level_22.unity
+    guid: 7bd237a244d594349998bea3dd96187b
+  - enabled: 1
+    path: Assets/Scenes/Levels/Final Levels/F_Level_25.unity
+    guid: 4026572319644f04cac7b785dd00b3f5
+  - enabled: 1
+    path: Assets/Scenes/Levels/Final Levels/F_Level_19.unity
+    guid: 6c57f3b3c6650e441a59de45046fdfbc
+  - enabled: 1
+    path: Assets/Scenes/Levels/Final Levels/F_Level_33.unity
+    guid: 98d5a6255e4d09142b5e64149bf07aa7
+  - enabled: 1
+    path: Assets/Scenes/Levels/Final Levels/F_Level_34.unity
+    guid: 133dfc1e6e326ec4bb25fa88971f019e
+  - enabled: 1
+    path: Assets/Scenes/Levels/Final Levels/F_Level_35.unity
+    guid: 590f2d151a116234a8545ae12163e671
+  - enabled: 1
+    path: Assets/Scenes/Levels/Final Levels/F_Level_37.unity
+    guid: efe7d7147fc7e3c459b5317cee03e962
+  - enabled: 1
+    path: Assets/Scenes/Levels/Final Levels/F_Level_38.unity
+    guid: 45999c27bc8276b4f873d9a51bc5dfb7
+  - enabled: 1
+    path: Assets/Scenes/Levels/Final Levels/F_Level_39.unity
+    guid: 9dd24cc8143a5ca4aa23334338a7c7a8
+  - enabled: 1
+    path: Assets/Scenes/Levels/Final Levels/F_Level_43.unity
+    guid: 4176632e11c5ee44abc5ec47bf78c9c7
+  - enabled: 1
+    path: Assets/Scenes/Levels/Final Levels/F_Level_44.unity
+    guid: c97fad671e9817e4f8a5eef38645f198
+  - enabled: 1
+    path: Assets/Scenes/Levels/TutorialsLevel/Tutor_Level_1.unity
+    guid: 09f231369365c4848b4524ec6ef88b3e
+  - enabled: 1
+    path: Assets/Scenes/Levels/TutorialsLevel/Tutor_Level_2.unity
+    guid: 20b0b86bd49953447ba6764620dab4c7
+  m_configObjects:
+    com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 3944e107dadf4ab4386de91ad5ffcd42,
+      type: 2}
+    com.unity.adaptiveperformance.samsung.android.provider_settings: {fileID: 11400000,
+      guid: 82992869e556d3049940f521ae721beb, type: 2}
+    com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000,
+      guid: 45b62bbe109fad64a93be96c7e47ccc4, type: 2}

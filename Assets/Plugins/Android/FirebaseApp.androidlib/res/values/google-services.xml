@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:keep="@string/gcm_defaultSenderId,@string/google_storage_bucket,@string/project_id,@string/google_api_key,@string/google_crash_reporting_api_key,@string/google_app_id">
+  <string name="gcm_defaultSenderId" translatable="false">1018523680192</string>
+  <string name="google_storage_bucket" translatable="false">mvp-thieves.appspot.com</string>
+  <string name="project_id" translatable="false">mvp-thieves</string>
+  <string name="google_api_key" translatable="false">AIzaSyAQMP9Pzw5551QFw__wm7ev0ihN9zs7N0M</string>
+  <string name="google_crash_reporting_api_key" translatable="false">AIzaSyAQMP9Pzw5551QFw__wm7ev0ihN9zs7N0M</string>
+  <string name="google_app_id" translatable="false">1:1018523680192:android:2f342806b13962e6b55c25</string>
+</resources>

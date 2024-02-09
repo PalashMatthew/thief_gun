@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "com.splash-games.submodule": "https://github.com/MattheoPalacio/splash-games-submodule.git",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.2d.tilemap": "1.0.0",
     "com.unity.2d.tilemap.extras": "3.1.2",

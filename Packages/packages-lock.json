@@ -1,12 +1,5 @@
 {
   "dependencies": {
-    "com.splash-games.submodule": {
-      "version": "https://github.com/MattheoPalacio/splash-games-submodule.git",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "b3710e089937a7458bb4ca2405fdfb5f73f7e284"
-    },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
       "depth": 0,

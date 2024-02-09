@@ -62,7 +62,7 @@ public class PlayerController : MonoBehaviour
             _slow_time = slow_time.AllSlow;
         else _slow_time = slow_time.PlayerSlow;
 
-        //_rebound = rebound.EveryTimeRebound;
+        _rebound = rebound.OneRebound;
     }
 
     void ChangeSkin()

@@ -46,6 +46,13 @@ public class PlayerDash : MonoBehaviour
     public float degreesPerSecond;
     public Vector3 lastPos;
 
+    bool move;
+    private float Xdif, Ydif;
+    public float speed;
+
+    Vector3 target_this;
+
+
     public void Awake()
     {
         lastPos = new Vector3(0,  0, 0 );
@@ -108,10 +115,7 @@ public class PlayerDash : MonoBehaviour
             if (transform.GetComponent<PlayerController>()._rebound == PlayerController.rebound.OneRebound)
             {
                 if (rebound)
-                {
-
-                    
-
+                {                   
                     if (Input.GetMouseButtonDown(0) && GameObject.Find("GameController").GetComponent<LevelController>().run_access)
                     {
                         lastPos = transform.forward;
@@ -134,11 +138,11 @@ public class PlayerDash : MonoBehaviour
 
                         change_dir = true;
 
-                        if (time_slow)
-                        {
-                            Time.timeScale = 0.1f;
-                            Time.fixedDeltaTime = Time.timeScale * 0.02f;
-                        }
+                        //if (time_slow)
+                        //{
+                        //    Time.timeScale = 0.1f;
+                        //    Time.fixedDeltaTime = Time.timeScale * 0.02f;
+                        //}
 
                         img_fake_joy_stick.GetComponent<Animator>().SetTrigger("extra_quit");
                         StopCoroutine(TutorTimer());
@@ -152,32 +156,34 @@ public class PlayerDash : MonoBehaviour
                     if (Input.GetMouseButton(0) && GameObject.Find("GameController").GetComponent<LevelController>().run_access)
                     {
                         Vector3 moveDirection = new Vector3(joy.Horizontal, 0, joy.Vertical);
+                        target_this = moveDirection;
+                        move = true;
 
                         last_joy_pos = new Vector2(joy.Horizontal, joy.Vertical);
 
                         if (joy.Horizontal != 0 && joy.Vertical != 0)
                         {
-                            //if (PlayerPrefs.GetString("inversion") == "true")
-                            //{
-                            //    transform.forward = -moveDirection;
-                            //}
-                            //else
-                            //{
-                            //    transform.forward = moveDirection;
-                            //}
-                            //transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y - 45f, transform.localEulerAngles.z);
+                            if (PlayerPrefs.GetString("inversion") == "true")
+                            {
+                                transform.forward = -moveDirection;
+                            }
+                            else
+                            {
+                                transform.forward = moveDirection;
+                            }
+                            transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y - 45f, transform.localEulerAngles.z);
 
-                            
 
-                            Quaternion targetRotation = Quaternion.LookRotation(new Vector3(moveDirection.x, moveDirection.y, moveDirection.z));
-                            transform.rotation = Quaternion.RotateTowards(transform.rotation,
-                                targetRotation, degreesPerSecond * Time.deltaTime);
 
-                            transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, 0);
+                            //Quaternion targetRotation = Quaternion.LookRotation(new Vector3(moveDirection.x, moveDirection.y, moveDirection.z));
+                            //transform.rotation = Quaternion.RotateTowards(transform.rotation,
+                            //    targetRotation, degreesPerSecond * Time.deltaTime);
 
-                            rb.velocity = new Vector3(0, 0, 0);
-                            rb.AddForce(transform.forward * 3 * force, ForceMode.Impulse);
-                            rb.AddForce(lastPos * force * 2, ForceMode.Impulse);
+                            //transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, 0);
+
+                            //rb.velocity = new Vector3(0, 0, 0);
+                            //rb.AddForce(transform.forward * 3 * force, ForceMode.Impulse);
+                            //rb.AddForce(lastPos * force * 2, ForceMode.Impulse);
                             //Vector3 newMoveDirection = rb.velocity;
 
                             //transform.forward = newMoveDirection;
@@ -186,6 +192,8 @@ public class PlayerDash : MonoBehaviour
 
                     if (Input.GetMouseButtonUp(0) && GameObject.Find("GameController").GetComponent<LevelController>().run_access)
                     {
+                        move = false;
+
                         if (rb.velocity.magnitude < force)
                             GameObject.Find("playerMesh").GetComponent<Animator>().SetTrigger("start");
                         //GameObject.Find("PlayerMesh").GetComponent<PlayerMeshController>().StartCoroutine(GameObject.Find("PlayerMesh").GetComponent<PlayerMeshController>().PauseRot());
@@ -496,6 +504,21 @@ public class PlayerDash : MonoBehaviour
     //    }
     //}
     #endregion
+
+    void FixedUpdate()
+    {
+        if (move)
+        {
+            //Xdif = target_this.x - transform.position.x;
+            //Ydif = target_this.z - transform.position.z;
+            //Vector3 target_dir = new Vector3(Xdif, 0, Ydif);
+            Vector3 target_dir = transform.forward;
+
+            Debug.Log(target_dir);
+
+            rb.AddForce(target_dir.normalized * speed);
+        }
+    }
 
     IEnumerator ReturnTimeScale()
     {

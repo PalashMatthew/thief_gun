@@ -711,6 +711,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_1
       objectReference: {fileID: 0}
+    - target: {fileID: 4099275609997923472, guid: 0c89643f7e7ca9f4db8f1c76ea668196,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1048,6 +1053,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4212714097033418969, guid: e12fdf3ba507faa4c9e1d01c2aa6c067,
         type: 3}
+      propertyPath: speed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4212714097033418969, guid: e12fdf3ba507faa4c9e1d01c2aa6c067,
+        type: 3}
       propertyPath: degreesPerSecond
       value: 1200
       objectReference: {fileID: 0}
@@ -1055,6 +1065,16 @@ PrefabInstance:
         type: 3}
       propertyPath: _rebound
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4212714097033418972, guid: e12fdf3ba507faa4c9e1d01c2aa6c067,
+        type: 3}
+      propertyPath: m_Drag
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4212714097033418972, guid: e12fdf3ba507faa4c9e1d01c2aa6c067,
+        type: 3}
+      propertyPath: m_AngularDrag
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 4723733117983940126, guid: e12fdf3ba507faa4c9e1d01c2aa6c067,
         type: 3}
@@ -5429,7 +5449,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1094263152
 Transform:
   m_ObjectHideFlags: 0
@@ -5533,6 +5553,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Turret-1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3565017841493820331, guid: c83c1c1a99ca0a94cb843d8808e99668,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9750,6 +9775,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Enemy_2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4943580284177242974, guid: bb107f9cb31667d438916e2629c74be7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6560980749686377122, guid: bb107f9cb31667d438916e2629c74be7,
         type: 3}

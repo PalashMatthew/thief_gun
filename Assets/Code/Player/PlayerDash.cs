@@ -43,8 +43,13 @@ public class PlayerDash : MonoBehaviour
     public ParticleSystem vfx_rebound;
 
 
+    public float degreesPerSecond;
+    public Vector3 lastPos;
+
     public void Awake()
     {
+        lastPos = new Vector3(0,  0, 0 );
+
         rb = GetComponent<Rigidbody>();
         joy = GameObject.Find("Floating Joystick").GetComponent<Joystick>();
 
@@ -99,84 +104,18 @@ public class PlayerDash : MonoBehaviour
         }
 
         if (!GameplayController._playerIsStopped)
-        {
-            if (transform.GetComponent<PlayerController>()._rebound == PlayerController.rebound.EveryTimeRebound)
-            {
-                if (Input.GetMouseButtonDown(0) && GameObject.Find("GameController").GetComponent<LevelController>().run_access)
-                {
-                    Camera.main.DOFieldOfView(32, 0.3f);
-
-                    obj_fake_joy.SetActive(false);
-
-                    StopAllCoroutines();
-                    Camera.main.GetComponent<CameraController>().StopAllCoroutines();
-                    Camera.main.GetComponent<CameraController>().smoothSpeed = 10;
-
-                    change_dir = true;
-
-                    if (time_slow)
-                    {
-                        Time.timeScale = 0.1f;
-                        Time.fixedDeltaTime = Time.timeScale * 0.02f;
-                    }
-
-                    img_fake_joy_stick.GetComponent<Animator>().SetTrigger("extra_quit");
-                    StopCoroutine(TutorTimer());
-
-                    //if (!vfx_sparks.isPlaying)
-                    //{
-                    //    vfx_sparks.Play();
-                    //}
-                }
-
-                if (Input.GetMouseButton(0) && GameObject.Find("GameController").GetComponent<LevelController>().run_access)
-                {                   
-                    Vector3 moveDirection = new Vector3(joy.Horizontal, 0, joy.Vertical);
-
-                    last_joy_pos = new Vector2(joy.Horizontal, joy.Vertical);
-
-                    if (joy.Horizontal != 0 && joy.Vertical != 0)
-                    {
-                        transform.forward = -moveDirection;
-                        transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y - 45f, transform.localEulerAngles.z);
-                    }                    
-                }
-
-                if (Input.GetMouseButtonUp(0) && GameObject.Find("GameController").GetComponent<LevelController>().run_access)
-                {
-                    obj_fake_joy.SetActive(true);
-
-                    change_dir = false;
-                    StartCoroutine(ReturnTimeScale());
-                    Camera.main.GetComponent<CameraController>().BackSpeed();
-
-                    rb.velocity = new Vector3(0, 0, 0);
-                    rb.AddForce(transform.forward * force, ForceMode.Impulse);
-
-                    if (last_joy_pos.x != 0 && last_joy_pos.y != 0)
-                    {
-                        rebound = false;
-
-                        if (GameObject.Find("GameUI").GetComponent<LevelUIController>().isTutorialLevel)
-                        {
-                            img_fake_joy_stick.GetComponent<Animator>().SetTrigger("tutor_off");
-
-                            img_fake_joy_stick.GetComponent<Animator>().SetTrigger("extra_quit");
-                        }
-                    }
-                    //rebound = true;
-                    Camera.main.DOFieldOfView(35, 0.3f);
-
-                    GameObject.Find("GameController").GetComponent<LevelController>().StartRun();
-                }
-            }
-
+        {           
             if (transform.GetComponent<PlayerController>()._rebound == PlayerController.rebound.OneRebound)
             {
                 if (rebound)
                 {
+
+                    
+
                     if (Input.GetMouseButtonDown(0) && GameObject.Find("GameController").GetComponent<LevelController>().run_access)
                     {
+                        lastPos = transform.forward;
+
                         if (isReboundVfx)
                         {
                             vfx_rebound.Stop();
@@ -218,15 +157,30 @@ public class PlayerDash : MonoBehaviour
 
                         if (joy.Horizontal != 0 && joy.Vertical != 0)
                         {
-                            if (PlayerPrefs.GetString("inversion") == "true")
-                            {
-                                transform.forward = -moveDirection;
-                            }
-                            else
-                            {
-                                transform.forward = moveDirection;
-                            }
-                            transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y - 45f, transform.localEulerAngles.z);
+                            //if (PlayerPrefs.GetString("inversion") == "true")
+                            //{
+                            //    transform.forward = -moveDirection;
+                            //}
+                            //else
+                            //{
+                            //    transform.forward = moveDirection;
+                            //}
+                            //transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y - 45f, transform.localEulerAngles.z);
+
+                            
+
+                            Quaternion targetRotation = Quaternion.LookRotation(new Vector3(moveDirection.x, moveDirection.y, moveDirection.z));
+                            transform.rotation = Quaternion.RotateTowards(transform.rotation,
+                                targetRotation, degreesPerSecond * Time.deltaTime);
+
+                            transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, 0);
+
+                            rb.velocity = new Vector3(0, 0, 0);
+                            rb.AddForce(transform.forward * force, ForceMode.Impulse);
+                            rb.AddForce(lastPos * force * 2, ForceMode.Impulse);
+                            //Vector3 newMoveDirection = rb.velocity;
+
+                            //transform.forward = newMoveDirection;
                         }
                     }
 
@@ -307,7 +261,241 @@ public class PlayerDash : MonoBehaviour
             if (change_dir)
                 GameObject.Find("PlayerMesh").transform.rotation = transform.rotation;
         }
-    }    
+    }
+
+    #region Update
+    //public void Update()
+    //{
+    //    //GameObject.Find("playerMesh").GetComponent<Animator>().SetBool("rebound", rebound);
+
+    //    if (!isReboundVfx)
+    //    {
+    //        if (rebound)
+    //        {
+    //            rebound_visualize.SetActive(true);
+    //        }
+    //        else
+    //        {
+    //            rebound_visualize.SetActive(false);
+    //        }
+    //    }
+
+    //    if (!GameplayController._playerIsStopped)
+    //    {
+    //        FakeJoySettings();
+    //    }
+
+    //    if (!GameplayController._playerIsStopped)
+    //    {
+    //        if (transform.GetComponent<PlayerController>()._rebound == PlayerController.rebound.EveryTimeRebound)
+    //        {
+    //            if (Input.GetMouseButtonDown(0) && GameObject.Find("GameController").GetComponent<LevelController>().run_access)
+    //            {
+    //                Camera.main.DOFieldOfView(32, 0.3f);
+
+    //                obj_fake_joy.SetActive(false);
+
+    //                StopAllCoroutines();
+    //                Camera.main.GetComponent<CameraController>().StopAllCoroutines();
+    //                Camera.main.GetComponent<CameraController>().smoothSpeed = 10;
+
+    //                change_dir = true;
+
+    //                if (time_slow)
+    //                {
+    //                    Time.timeScale = 0.1f;
+    //                    Time.fixedDeltaTime = Time.timeScale * 0.02f;
+    //                }
+
+    //                img_fake_joy_stick.GetComponent<Animator>().SetTrigger("extra_quit");
+    //                StopCoroutine(TutorTimer());
+
+    //                //if (!vfx_sparks.isPlaying)
+    //                //{
+    //                //    vfx_sparks.Play();
+    //                //}
+    //            }
+
+    //            if (Input.GetMouseButton(0) && GameObject.Find("GameController").GetComponent<LevelController>().run_access)
+    //            {
+    //                Vector3 moveDirection = new Vector3(joy.Horizontal, 0, joy.Vertical);
+
+    //                last_joy_pos = new Vector2(joy.Horizontal, joy.Vertical);
+
+    //                if (joy.Horizontal != 0 && joy.Vertical != 0)
+    //                {
+    //                    transform.forward = -moveDirection;
+    //                    transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y - 45f, transform.localEulerAngles.z);
+    //                }
+    //            }
+
+    //            if (Input.GetMouseButtonUp(0) && GameObject.Find("GameController").GetComponent<LevelController>().run_access)
+    //            {
+    //                obj_fake_joy.SetActive(true);
+
+    //                change_dir = false;
+    //                StartCoroutine(ReturnTimeScale());
+    //                Camera.main.GetComponent<CameraController>().BackSpeed();
+
+    //                rb.velocity = new Vector3(0, 0, 0);
+    //                rb.AddForce(transform.forward * force, ForceMode.Impulse);
+
+    //                if (last_joy_pos.x != 0 && last_joy_pos.y != 0)
+    //                {
+    //                    rebound = false;
+
+    //                    if (GameObject.Find("GameUI").GetComponent<LevelUIController>().isTutorialLevel)
+    //                    {
+    //                        img_fake_joy_stick.GetComponent<Animator>().SetTrigger("tutor_off");
+
+    //                        img_fake_joy_stick.GetComponent<Animator>().SetTrigger("extra_quit");
+    //                    }
+    //                }
+    //                //rebound = true;
+    //                Camera.main.DOFieldOfView(35, 0.3f);
+
+    //                GameObject.Find("GameController").GetComponent<LevelController>().StartRun();
+    //            }
+    //        }
+
+    //        if (transform.GetComponent<PlayerController>()._rebound == PlayerController.rebound.OneRebound)
+    //        {
+    //            if (rebound)
+    //            {
+    //                if (Input.GetMouseButtonDown(0) && GameObject.Find("GameController").GetComponent<LevelController>().run_access)
+    //                {
+    //                    if (isReboundVfx)
+    //                    {
+    //                        vfx_rebound.Stop();
+    //                        vfx_rebound.gameObject.SetActive(false);
+    //                    }
+    //                    //GameObject.Find("PlayerMesh").GetComponent<PlayerMeshController>().slowRotate.Pause();
+    //                    DOTween.Kill(GameObject.Find("PlayerMesh"));
+
+    //                    Camera.main.DOFieldOfView(32, 0.3f);
+
+    //                    obj_fake_joy.SetActive(false);
+
+    //                    StopAllCoroutines();
+    //                    Camera.main.GetComponent<CameraController>().StopAllCoroutines();
+    //                    Camera.main.GetComponent<CameraController>().smoothSpeed = 10;
+
+    //                    change_dir = true;
+
+    //                    if (time_slow)
+    //                    {
+    //                        Time.timeScale = 0.1f;
+    //                        Time.fixedDeltaTime = Time.timeScale * 0.02f;
+    //                    }
+
+    //                    img_fake_joy_stick.GetComponent<Animator>().SetTrigger("extra_quit");
+    //                    StopCoroutine(TutorTimer());
+
+    //                    //if (!vfx_sparks.isPlaying)
+    //                    //{
+    //                    //    vfx_sparks.Play();
+    //                    //}
+    //                }
+
+    //                if (Input.GetMouseButton(0) && GameObject.Find("GameController").GetComponent<LevelController>().run_access)
+    //                {
+    //                    Vector3 moveDirection = new Vector3(joy.Horizontal, 0, joy.Vertical);
+
+    //                    last_joy_pos = new Vector2(joy.Horizontal, joy.Vertical);
+
+    //                    if (joy.Horizontal != 0 && joy.Vertical != 0)
+    //                    {
+    //                        if (PlayerPrefs.GetString("inversion") == "true")
+    //                        {
+    //                            transform.forward = -moveDirection;
+    //                        }
+    //                        else
+    //                        {
+    //                            transform.forward = moveDirection;
+    //                        }
+    //                        transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y - 45f, transform.localEulerAngles.z);
+    //                    }
+    //                }
+
+    //                if (Input.GetMouseButtonUp(0) && GameObject.Find("GameController").GetComponent<LevelController>().run_access)
+    //                {
+    //                    if (rb.velocity.magnitude < force)
+    //                        GameObject.Find("playerMesh").GetComponent<Animator>().SetTrigger("start");
+    //                    //GameObject.Find("PlayerMesh").GetComponent<PlayerMeshController>().StartCoroutine(GameObject.Find("PlayerMesh").GetComponent<PlayerMeshController>().PauseRot());
+
+    //                    obj_fake_joy.SetActive(true);
+
+    //                    change_dir = false;
+    //                    StartCoroutine(ReturnTimeScale());
+    //                    Camera.main.GetComponent<CameraController>().BackSpeed();
+
+    //                    rb.velocity = new Vector3(0, 0, 0);
+    //                    rb.AddForce(transform.forward * force, ForceMode.Impulse);
+    //                    Vector3 newMoveDirection = rb.velocity;
+
+    //                    transform.forward = newMoveDirection;
+    //                    //GameObject.Find("PlayerMesh").transform.rotation = transform.rotation;
+    //                    //GameObject.Find("PlayerMesh").transform.forward = transform.forward;
+
+    //                    //if (last_joy_pos.x != 0 && last_joy_pos.y != 0)
+    //                    //{
+    //                    //    rebound = false;
+    //                    //}
+    //                    //rebound = false;
+    //                    if (GameObject.Find("GameUI").GetComponent<LevelUIController>().isTutorialLevel)
+    //                    {
+    //                        //img_fake_joy_stick.GetComponent<Animator>().SetTrigger("tutor_off");
+
+    //                        img_fake_joy_stick.GetComponent<Animator>().SetTrigger("extra_quit");
+    //                    }
+
+
+    //                    //rebound = true;
+    //                    Camera.main.DOFieldOfView(35, 0.3f);
+
+    //                    GameObject.Find("GameController").GetComponent<LevelController>().StartRun();
+    //                }
+    //            }
+    //        }
+
+    //        if (!change_dir)
+    //        {
+    //            if (rb.velocity.magnitude < force)
+    //            {
+    //                rb.velocity = rb.velocity.normalized * force;
+    //            }
+
+    //            if (rb.velocity.magnitude > force)
+    //            {
+    //                rb.velocity = rb.velocity.normalized * force;
+    //            }
+
+    //            Vector3 newMoveDirection = rb.velocity;
+
+    //            transform.forward = newMoveDirection;
+
+    //            //GameObject.Find("PlayerMesh").transform.rotation = transform.rotation;
+    //        }
+
+    //        if (change_dir && !time_slow)
+    //        {
+    //            if (rb.velocity.magnitude < slow_force)
+    //            {
+    //                rb.velocity = rb.velocity.normalized * slow_force;
+    //            }
+
+    //            if (rb.velocity.magnitude > slow_force)
+    //            {
+    //                rb.velocity = rb.velocity.normalized * slow_force;
+    //            }
+
+    //        }
+
+    //        if (change_dir)
+    //            GameObject.Find("PlayerMesh").transform.rotation = transform.rotation;
+    //    }
+    //}
+    #endregion
 
     IEnumerator ReturnTimeScale()
     {

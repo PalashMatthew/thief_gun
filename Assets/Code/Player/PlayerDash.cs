@@ -176,7 +176,7 @@ public class PlayerDash : MonoBehaviour
                             transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, 0);
 
                             rb.velocity = new Vector3(0, 0, 0);
-                            rb.AddForce(transform.forward * force, ForceMode.Impulse);
+                            rb.AddForce(transform.forward * 3 * force, ForceMode.Impulse);
                             rb.AddForce(lastPos * force * 2, ForceMode.Impulse);
                             //Vector3 newMoveDirection = rb.velocity;
 
